@@ -4,7 +4,6 @@ echo "Instralling MySQL" >> /var/log/user-data.log
 sudo apt-get update
 sudo apt-get install -y mysql-server 
 echo "setting up MySQL" >> /var/log/user-data.log
-sudo mysql_secure_installation -y
 echo "Instralling sakila database" >> /var/log/user-data.log
 sudo apt-get update
 sudo apt-get install -y wget
