@@ -1,18 +1,22 @@
 #!/bin/bash
 # installing MySQL server
 echo "Instralling MySQL" >> /var/log/user-data.log
-apt-get update
-apt-get install -y mysql-server 
+sudo apt-get update
+sudo apt-get install -y mysql-server 
 echo "setting up MySQL" >> /var/log/user-data.log
-mysql_secure_installation
+sudo mysql_secure_installation
 echo "Instralling sakila database" >> /var/log/user-data.log
-apt-get update
-apt-get install-y wget
-wget https://downloads.mysql.com/docs/sakila-db.tar.gz && tar -xf sakila-db.tar.gz -C /tmp/
-mysql -u root -p
+sudo apt-get update
+sudo apt-get install -y wget
+echo "downloading sakila database" >> /var/log/user-data.log
+
+sudo wget https://downloads.mysql.com/docs/sakila-db.tar.gz && sudo tar -xf sakila-db.tar.gz -C /tmp/
+echo "running mysql as root" >> /var/log/user-data.log
+
+sudo mysql -u root
 SOURCE /tmp/sakila-db/sakila-schema.sql;
 SOURCE /tmp/sakila-db/sakila-data.sql;
-USE sakila; >> /var/log/user-data.log
-SHOW FULL TABLES; >> /var/log/user-data.log
-
+USE sakila; 
+SHOW FULL TABLES; 
+exit
 echo "server set up" >> /var/log/user-data.log
