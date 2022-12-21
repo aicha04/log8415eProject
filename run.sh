@@ -1,8 +1,21 @@
-
+# curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/run.sh > run.sh && bash run.sh
 ECSImageId=ami-0574da719dca65348
 Zone=$(aws ec2 describe-subnets --filters Name=availability-zone,Values=us-east-1* --query Subnets[0].AvailabilityZone --output text)
 echo $Zone
 
+DefaultSecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filters Name=group-name,Values=default --output text)
+echo $DefaultSecurityGroup
+
+OldInstances=$(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[].[InstanceId]" --output text)
+echo $OldInstances
+if [ "$OldInstances" != "" ]; then
+    for instance in $OldInstances
+    do
+        # remove dependency to sg (which means we cant delete sg), this has to be done while the instance is running or stopped (not terminating)
+        aws ec2 modify-instance-attribute --instance-id $instance --groups $DefaultSecurityGroup
+    done
+    aws ec2 terminate-instances --instance-ids $OldInstances
+fi
 SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=tp2-group" --output text)
 
 if [ "$SecurityGroup" == "" ]; then
