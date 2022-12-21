@@ -1,3 +1,4 @@
+#!/bin/bash
 # installing MySQL server
 echo "Instralling MySQL" >> /var/log/user-data.log
 apt-get update

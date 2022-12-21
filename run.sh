@@ -1,3 +1,4 @@
+#!/bin/bash
 # curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/run.sh > run.sh && bash run.sh
 ECSImageId=ami-0574da719dca65348
 Zone=$(aws ec2 describe-subnets --filters Name=availability-zone,Values=us-east-1* --query Subnets[0].AvailabilityZone --output text)
