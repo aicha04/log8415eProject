@@ -13,3 +13,5 @@ SOURCE /tmp/sakila-db/sakila-schema.sql;
 SOURCE /tmp/sakila-db/sakila-data.sql;
 USE sakila; >> /var/log/user-data.log
 SHOW FULL TABLES; >> /var/log/user-data.log
+
+echo "server set up" >> /var/log/user-data.log
