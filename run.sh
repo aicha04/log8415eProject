@@ -43,7 +43,7 @@ if [ "$SecurityGroup" == "" ]; then
 fi
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
-T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
 
 #mgmt node
