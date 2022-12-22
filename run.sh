@@ -19,7 +19,7 @@ if [ "$OldInstances" != "" ]; then
 fi
 SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=tp2-group" --output text)
 
-if [ "$SecurityGroup" == "" ]; then
+if [ "$SecurityGroup" != "" ]; then
     OldGroups=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --output text)
     for group in $OldGroups
     do
