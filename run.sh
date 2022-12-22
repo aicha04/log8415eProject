@@ -50,3 +50,13 @@ echo $T2Micro
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
 T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_mgmt
+
+#master node
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
+T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_master
+
+#slave nodes
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_slaves
