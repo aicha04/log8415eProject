@@ -39,6 +39,8 @@ if [ "$SecurityGroup" != "" ]; then
     # for MySQL
     aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 1186  --cidr 0.0.0.0/0
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 1186  --cidr 0.0.0.0/0
+    aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 3306  --cidr 0.0.0.0/0
+    aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 3306  --cidr 0.0.0.0/0
     
 fi
 #stand alone instance
