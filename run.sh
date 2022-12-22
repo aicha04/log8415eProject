@@ -20,14 +20,8 @@ fi
 SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=tp2-group" --output text)
 
 if [ "$SecurityGroup" != "" ]; then
-    OldGroups=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --output text)
-    for group in $OldGroups
-    do
-        if [ "$group" != "$DefaultSecurityGroup" ]; then
-            aws ec2 delete-security-group --group-id $group
-        fi
-        sleep 10
-    done
+    aws ec2 delete-security-group --group-id $SecurityGroup
+fi
     SecurityGroup=$(aws ec2 create-security-group --description "tp2-group" --group-name tp2-group --output text)
     # enable inbound ssh to debug and http for us to view the webapp
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 22   --cidr 0.0.0.0/0
@@ -42,7 +36,7 @@ if [ "$SecurityGroup" != "" ]; then
     aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 3306  --cidr 0.0.0.0/0
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 3306  --cidr 0.0.0.0/0
     
-fi
+
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
 T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
