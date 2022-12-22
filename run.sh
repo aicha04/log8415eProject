@@ -36,12 +36,17 @@ if [ "$SecurityGroup" == "" ]; then
     # for downloads, enable http/https outbound
     aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 80   --cidr 0.0.0.0/0
     aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 443  --cidr 0.0.0.0/0
+    # for MySQL
+    aws ec2 authorize-security-group-egress  --group-id $SecurityGroup --protocol tcp --port 1186  --cidr 0.0.0.0/0
+    aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 1186  --cidr 0.0.0.0/0
+    
 fi
-
+#stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
 T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
 
+#mgmt node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
 T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_mgmt
