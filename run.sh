@@ -48,20 +48,20 @@ echo $T2Micro
 
 #mgmt node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=mgmt}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_mgmt
 
 #master node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_master
 
 #slave nodes
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 
 #benchmark node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupBenchmark.sh
-T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=benchmark}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_benchmark
