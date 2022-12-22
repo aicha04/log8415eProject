@@ -1,8 +1,8 @@
 #!/bin/bash
 # curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/run.sh > run.sh && bash run.sh
 ECSImageId=ami-0574da719dca65348
-Zone=$(aws ec2 describe-subnets --filters Name=availability-zone,Values=us-east-1* --query Subnets[0].AvailabilityZone --output text)
-echo $Zone
+SubnetId=$(aws ec2 describe-subnets --query 'Subnets'[0].SubnetId --output text) #default Subnet
+echo $SubnetId
 
 DefaultSecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filters Name=group-name,Values=default --output text)
 echo $DefaultSecurityGroup
@@ -43,20 +43,20 @@ if [ "$SecurityGroup" == "" ]; then
 fi
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
-T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
 
 #mgmt node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_mgmt
 
 #master node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_master
 
 #slave nodes
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --placement AvailabilityZone=$Zone --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
