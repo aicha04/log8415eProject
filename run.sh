@@ -60,3 +60,8 @@ echo $T2Micro_master
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
 T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
+
+#benchmark node
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupBenchmark.sh
+T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_benchmark
