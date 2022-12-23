@@ -8,7 +8,7 @@ sudo apt-get install -y python3-venv
 sudo apt-get install -y python-dev
 sudo apt-get install -y virtualenv
 sudo apt-get install -y nginx
-sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+sudo apt-get install -y python3-dev default-libmysqlclient-dev build-essential
 echo "installing flask and gunicorn in venv" >> /var/log/user-data.log
 mkdir flask_application
 cd flask_application
