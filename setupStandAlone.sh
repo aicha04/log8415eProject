@@ -14,9 +14,9 @@ sudo wget https://downloads.mysql.com/docs/sakila-db.tar.gz && sudo tar -xf saki
 echo "running mysql as root" >> /var/log/user-data.log
 
 sudo mysql -u root -e  "SOURCE /tmp/sakila-db/sakila-schema.sql; SOURCE /tmp/sakila-db/sakila-data.sql; USE sakila; create user user identified by 'password'; ">>/var/log/user-data.log
-sudo mysql -u root -e "USE sakila; grant all on sakila.* to `user`@`%`;show grants for user;"
+sudo mysql -u root -e 'USE sakila; grant all on sakila.* to `user`@`%`;show grants for user;'
 echo "server set up" >> /var/log/user-data.log
 
 #sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 sudo sed -i 's/127.0.0.1/0.0.0.0/1' /etc/mysql/mysql.conf.d/mysqld.cnf
-#sudo systemctl restart mysql
+sudo systemctl restart mysql
