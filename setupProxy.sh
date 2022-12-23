@@ -15,6 +15,8 @@ sudo virtualenv venv
 source venv/bin/activate
 sudo pip install flask
 sudo pip install gunicorn
+sudo pip install MySQL-python
+sudo pip install MySQL-python-connector
 echo "creating glask app" >> /var/log/user-data.log
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/proxyFlaskApp.py> my_app.py
 echo "downloading flasapp.service" >> /var/log/user-data.log
