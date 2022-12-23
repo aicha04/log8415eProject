@@ -17,12 +17,12 @@ if [ "$OldInstances" != "" ]; then
     done
     aws ec2 terminate-instances --instance-ids $OldInstances
 fi
-SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=tp2-group" --output text)
+SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=projet" --output text)
 
 if [ "$SecurityGroup" != "" ]; then
     aws ec2 delete-security-group --group-id $SecurityGroup
 fi
-    SecurityGroup=$(aws ec2 create-security-group --description "tp2-group" --group-name tp2-group --output text)
+    SecurityGroup=$(aws ec2 create-security-group --description "projet" --group-name projet --output text)
     # enable inbound ssh to debug and http for us to view the webapp
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 22   --cidr 0.0.0.0/0
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 80   --cidr 0.0.0.0/0
