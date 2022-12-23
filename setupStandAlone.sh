@@ -18,6 +18,6 @@ sudo mysql -u root -e  "SOURCE /tmp/sakila-db/sakila-schema.sql; SOURCE /tmp/sak
 echo "server set up" >> /var/log/user-data.log
 
 #sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
-sudo sed 's/127.0.0.1/0.0.0.0/1' /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo sed -i 's/127.0.0.1/0.0.0.0/1' /etc/mysql/mysql.conf.d/mysqld.cnf
 sudo sed 's/0.0.0.0/127.0.0.1/1' /etc/mysql/mysql.conf.d/mysqld.cnf
 #sudo systemctl restart mysql

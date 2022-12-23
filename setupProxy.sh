@@ -15,6 +15,7 @@ virtualenv venv
 source venv/bin/activate
 pip install flask
 pip install gunicorn
+pip install logging
 echo "creating glask app" >> /var/log/user-data.log
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/proxyFlaskApp.py> my_app.py
 echo "downloading flasapp.service" >> /var/log/user-data.log
@@ -32,3 +33,4 @@ sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/default
 echo "restarting nginx" >> /var/log/user-data.log
 sudo systemctl restart nginx
 echo "setup of proxy ended" >> /var/log/user-data.log
+
