@@ -1,6 +1,7 @@
 #!/bin/bash
 # curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/run.sh > run.sh && bash run.sh
 ECSImageId=ami-0574da719dca65348
+DebianImageId=ami-050406429a71aaa64
 SubnetId=$(aws ec2 describe-subnets --query 'Subnets'[0].SubnetId --output text) #default Subnet
 echo $SubnetId
 
@@ -59,7 +60,7 @@ echo $T2Micro_slaves
 
 #proxy node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupproxy.sh
-T2Micro_proxy="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_proxy
 
 #benchmark node
