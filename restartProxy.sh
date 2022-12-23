@@ -5,6 +5,7 @@ DebianImageId=ami-050406429a71aaa64
 DefaultSecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filters Name=group-name,Values=default --output text)
 SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=proxy" --output text)
 T2Large_proxy=$(aws ec2 describe-instances --filters Name=tag:Name,Values=running --query "Reservations[].Instances[].[InstanceId]" --output text)
+echo $T2Large_proxy
 SubnetId=$(aws ec2 describe-subnets --query 'Subnets'[0].SubnetId --output text) #default Subnet
 echo $SubnetId
 aws ec2 modify-instance-attribute --instance-id $T2Large_proxy --groups $DefaultSecurityGroup
