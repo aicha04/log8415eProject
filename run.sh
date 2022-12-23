@@ -60,8 +60,8 @@ echo $T2Micro_slaves
 
 #proxy node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupproxy.sh
-T2Micro_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
-echo $T2Micro_proxy
+T2Large_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.large --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
+echo $T2Large_proxy
 
 #benchmark node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/benchmark.sh > setupBenchmark.sh
