@@ -17,7 +17,7 @@ if [ "$OldInstances" != "" ]; then
         aws ec2 modify-instance-attribute --instance-id $instance --groups $DefaultSecurityGroup
     done
     aws ec2 terminate-instances --instance-ids $OldInstances
-    aws ec2 wait instance-terminated ----instance-ids $OldInstances
+    aws ec2 wait instance-terminated --instance-ids $OldInstances
 fi
 SecurityGroup=$(aws ec2 describe-security-groups --query "SecurityGroups[].GroupId" --filter "Name=group-name,Values=projet" --output text)
 
