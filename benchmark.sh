@@ -1,5 +1,5 @@
-#installing sysbench
 #!/bin/bash
+#installing sysbench
 echo "installing sysbench" >> /var/log/user-data.log
 sudo apt-get update
 sudo apt-get -y install sysbench
