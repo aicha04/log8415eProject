@@ -11,11 +11,10 @@ sudo apt-get install -y nginx
 echo "installing flask and gunicorn in venv" >> /var/log/user-data.log
 mkdir flask_application
 cd flask_application
-virtualenv venv
+sudo virtualenv venv
 source venv/bin/activate
-pip install flask
-pip install gunicorn
-pip install logging
+sudo pip install flask
+sudo pip install gunicorn
 echo "creating glask app" >> /var/log/user-data.log
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/proxyFlaskApp.py> my_app.py
 echo "downloading flasapp.service" >> /var/log/user-data.log
