@@ -38,25 +38,28 @@ fi
     aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 3306  --cidr 0.0.0.0/0
     
 
+#master node
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMaster.sh > setupMaster.sh
+T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.98 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_master
+
+#slave node 1
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.99 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_slaves
+#slave node 2
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.100 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_slaves
+#slave node 3
+curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.101 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+echo $T2Micro_slaves
+
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
 T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
-
-#mgmt node
-curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_mgmt="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=mgmt}]' --query "Instances[].[InstanceId]" --output text)"
-echo $T2Micro_mgmt
-
-#master node
-curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
-echo $T2Micro_master
-
-#slave nodes
-curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMGMT.sh > setupMGMT.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 3 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
-echo $T2Micro_slaves
 
 #proxy node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupProxy.sh > setupProxy.sh
