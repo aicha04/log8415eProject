@@ -24,8 +24,8 @@ echo "setting mysql server and Client" >> /var/log/user-data.log
 cd ~
 echo "downloading mysql cluster and Client" >> /var/log/user-data.log
 wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar
-mkdir install
-tar -xvf mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar -C install/
+sudo mkdir ~/install
+sudo tar -xvf mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar -C install/
 cd install
 sudo apt-get update
 sudo apt-get install libaio1 libmecab2
