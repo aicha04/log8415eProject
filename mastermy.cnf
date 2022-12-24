@@ -1,0 +1,8 @@
+[mysqld]
+nbdcluster
+skip_ssl
+bind-address=0.0.0.0 
+
+[mysql_cluster]
+# Options for NDB Cluster processes:
+ndb-connectstring=172.31.30.98  # location of cluster manager

@@ -13,9 +13,11 @@ sudo ndb_mgmd -f /var/lib/mysql-cluster/config.ini
 echo "setting cluster so it starts on boot" >> /var/log/user-data.log
 sudo pkill -f ndb_mgmd
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/ndb_mgmd.service > /etc/systemd/system/ndb_mgmd.service
-echo "reloading daemon" > /var/log/user-data.log
+sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/mastermy.cnf > /etc/mysql/my.cnf
+echo "reloading daemon" >> /var/log/user-data.log
 sudo systemctl daemon-reload
 sudo systemctl enable ndb_mgmd
 echo "start service" >> /var/log/user-data.log
 sudo systemctl start ndb_mgmd
 sudo systemctl status ndb_mgmd >> /var/log/user-data.log
+echo "setup ended" >> /var/log/user-data.log
