@@ -1,5 +1,5 @@
-upstream flaskflaskapp {
-    server 127.0.0.1:8080;
+upstream db {
+    server 172.31.30.98:3306;
 }
 
 server {
@@ -11,6 +11,6 @@ server {
     server_name _;
 
     location / {
-        proxy_pass flaskflaskapp;
+        proxy_pass db;
     }
 }

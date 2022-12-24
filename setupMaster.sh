@@ -2,9 +2,9 @@
 echo "setting up master" >> /var/log/user-data.log
 sudo apt-get update
 sudo apt-get install -y wget
-cd ~
+cd /home/ubuntu
 echo "downloading my sql cluster management server" >> /var/log/user-data.log
-wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster-community-management-server_8.0.31-1ubuntu22.04_amd64.deb
+sudo wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster-community-management-server_8.0.31-1ubuntu22.04_amd64.deb
 sudo dpkg -i mysql-cluster-community-management-server_8.0.31-1ubuntu22.04_amd64.deb
 echo "setting config.ini file" >> /var/log/user-data.log
 sudo mkdir /var/lib/mysql-cluster
@@ -21,19 +21,22 @@ echo "start service" >> /var/log/user-data.log
 sudo systemctl start ndb_mgmd
 sudo systemctl status ndb_mgmd >> /var/log/user-data.log
 echo "setting mysql server and Client" >> /var/log/user-data.log
-cd ~
+cd /home/ubuntu
 echo "downloading mysql cluster and Client" >> /var/log/user-data.log
-wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar
-sudo mkdir ~/install
+sudo wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar
+sudo mkdir /home/ubuntu/install
 sudo tar -xvf mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar -C install/
 cd install
 sudo apt-get update
 sudo apt-get install libaio1 libmecab2
-sudo dpkg -i mysql-common_7.6.6-1ubuntu18.04_amd64.deb
-sudo dpkg -i mysql-cluster-community-client_7.6.6-1ubuntu18.04_amd64.deb
-sudo dpkg -i mysql-client_7.6.6-1ubuntu18.04_amd64.deb
-sudo dpkg -i mysql-cluster-community-server_7.6.6-1ubuntu18.04_amd64.deb
-sudo dpkg -i mysql-server_7.6.6-1ubuntu18.04_amd64.deb
+sudo dpkg -i mysql-common_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-client-plugins_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-client-core_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-client_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-client_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-server-core_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-server_8.0.31-1ubuntu22.04_amd64.deb
+sudo dpkg -i mysql-server_8.0.31-1ubuntu22.04_amd64.deb
 echo "configuring my.cnf file" >> /var/log/user-data.log
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/mastermy.cnf >> /etc/mysql/my.cnf
 echo "restarting mysql server" >> /var/log/user-data.log
