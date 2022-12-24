@@ -59,15 +59,15 @@ echo $T2Micro_slaves
 
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
-T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.90 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
 
 #proxy node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupProxy.sh > setupProxy.sh
-T2Large_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.large --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupProxy.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
+T2Large_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.large --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupProxy.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.91 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Large_proxy
 
 #benchmark node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/benchmark.sh > setupBenchmark.sh
-T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupBenchmark.sh --subnet-id=$SubnetId --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=benchmark}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupBenchmark.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.92 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=benchmark}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_benchmark
