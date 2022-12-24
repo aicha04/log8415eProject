@@ -46,15 +46,15 @@ echo $T2Micro_master
 
 #slave node 1
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.99 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh  --subnet-id=$SubnetId --private-ip-address 172.31.30.99 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 #slave node 2
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.100 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.100 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 #slave node 3
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --subnet-id=$SubnetId --private-ip-address 172.31.30.101 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.101 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 
 #stand alone instance

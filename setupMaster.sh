@@ -13,11 +13,29 @@ sudo ndb_mgmd -f /var/lib/mysql-cluster/config.ini
 echo "setting cluster so it starts on boot" >> /var/log/user-data.log
 sudo pkill -f ndb_mgmd
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/ndb_mgmd.service > /etc/systemd/system/ndb_mgmd.service
-sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/mastermy.cnf > /etc/mysql/my.cnf
+
 echo "reloading daemon" >> /var/log/user-data.log
 sudo systemctl daemon-reload
 sudo systemctl enable ndb_mgmd
 echo "start service" >> /var/log/user-data.log
 sudo systemctl start ndb_mgmd
 sudo systemctl status ndb_mgmd >> /var/log/user-data.log
+echo "setting mysql server and Client" >> /var/log/user-data.log
+cd ~
+echo "downloading mysql cluster and Client" >> /var/log/user-data.log
+wget https://dev.mysql.com/get/Downloads/MySQL-Cluster-8.0/mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar
+mkdir install
+tar -xvf mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar -C install/
+cd install
+sudo apt-get update
+sudo apt-get install libaio1 libmecab2
+sudo dpkg -i mysql-common_7.6.6-1ubuntu18.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-client_7.6.6-1ubuntu18.04_amd64.deb
+sudo dpkg -i mysql-client_7.6.6-1ubuntu18.04_amd64.deb
+sudo dpkg -i mysql-cluster-community-server_7.6.6-1ubuntu18.04_amd64.deb
+sudo dpkg -i mysql-server_7.6.6-1ubuntu18.04_amd64.deb
+echo "configuring my.cnf file" >> /var/log/user-data.log
+sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/mastermy.cnf >> /etc/mysql/my.cnf
+echo "restarting mysql server" >> /var/log/user-data.log
+sudo systemctl restart mysql
 echo "setup ended" >> /var/log/user-data.log
