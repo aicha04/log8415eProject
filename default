@@ -1,5 +1,5 @@
 upstream db {
-    server 172.31.30.98:3306;
+    server 172.31.5.98:3306;
 }
 
 server {

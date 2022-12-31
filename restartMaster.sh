@@ -14,5 +14,5 @@ aws ec2 terminate-instances --instance-ids $T2Large_master
 aws ec2 wait instance-terminated --instance-ids $T2Large_master
 #master node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMaster.sh > setupMaster.sh
-T2Large_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupMaster.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.98 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
+T2Large_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupMaster.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.98 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Large_master
