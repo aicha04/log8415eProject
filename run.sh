@@ -41,33 +41,33 @@ fi
 
 #master node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupMaster.sh > setupMaster.sh
-T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupMaster.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.98 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_master="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupMaster.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.98 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=master}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_master
 
 #slave node 1
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh  --subnet-id=$SubnetId --private-ip-address 172.31.30.99 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh  --subnet-id=$SubnetId --private-ip-address 172.31.5.99 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 #slave node 2
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.100 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.100 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 #slave node 3
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupSlave.sh > setupSlave.sh
-T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.101 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_slaves="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupSlave.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.101 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=slave}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_slaves
 
 #stand alone instance
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupStandAlone.sh > setupInstance.sh
-T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.90 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupInstance.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.90 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=StandAlone}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro
 
 #proxy node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/setupProxy.sh > setupProxy.sh
-T2Large_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.large --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupProxy.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.91 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
+T2Large_proxy="$(aws ec2 run-instances --image-id $DebianImageId --count 1 --instance-type t2.large --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupProxy.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.91 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=proxy}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Large_proxy
 
 #benchmark node
 curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/benchmark.sh > setupBenchmark.sh
-T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupBenchmark.sh --subnet-id=$SubnetId --private-ip-address 172.31.30.92 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=benchmark}]' --query "Instances[].[InstanceId]" --output text)"
+T2Micro_benchmark="$(aws ec2 run-instances --image-id $ECSImageId --count 1 --instance-type t2.micro --security-group-ids $SecurityGroup --key-name vockey --user-data file://setupBenchmark.sh --subnet-id=$SubnetId --private-ip-address 172.31.5.92 --tag-specifications 'ResourceType=instance,Tags= [ {Key=Name,Value=benchmark}]' --query "Instances[].[InstanceId]" --output text)"
 echo $T2Micro_benchmark
