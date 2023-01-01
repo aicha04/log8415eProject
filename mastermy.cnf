@@ -1,5 +1,5 @@
 [mysqld]
-nbdcluster
+ndbcluster
 skip_ssl
 bind-address=0.0.0.0 
 
