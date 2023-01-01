@@ -18,7 +18,6 @@ echo "starting data node" >> /var/log/user-data.log
 sudo ndbd >> /var/log/user-data.log
 echo "setting cluster so it starts on boot" >> /var/log/user-data.log
 sudo pkill -f ndbd
-sudo nano /etc/systemd/system/ndbd.service
 sudo curl https://raw.githubusercontent.com/aicha04/log8415eProject/main/ndbd.service > /etc/systemd/system/ndbd.service
 echo "reloading deamon" >> /var/log/user-data.log
 sudo systemctl daemon-reload

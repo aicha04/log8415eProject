@@ -28,7 +28,7 @@ sudo mkdir /home/ubuntu/install
 sudo tar -xvf mysql-cluster_8.0.31-1ubuntu22.04_amd64.deb-bundle.tar -C install/
 cd install
 sudo apt-get update
-sudo apt-get install libaio1 libmecab2
+sudo apt-get install -y libaio1 libmecab2
 sudo dpkg -i mysql-common_8.0.31-1ubuntu22.04_amd64.deb
 sudo dpkg -i mysql-cluster-community-client-plugins_8.0.31-1ubuntu22.04_amd64.deb
 sudo dpkg -i mysql-cluster-community-client-core_8.0.31-1ubuntu22.04_amd64.deb
